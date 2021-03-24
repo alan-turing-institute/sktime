@@ -3,7 +3,7 @@ cython>=0.29.0
 fbprophet>=0.7.1
 hcrystalball>=0.1.9
 numba>=0.50,<0.53
-numpy==1.19
+numpy==1.19.2
 pandas==1.1.5
 pmdarima>=1.8.0
 pytest
@@ -13,5 +13,7 @@ scikit-posthocs
 statsmodels>=0.12.1
 stumpy>=1.5.1
 tbats>=1.1.0
+tensorflow>=2.4.1
+tensorflow-probability>=0.12.1
 tsfresh>=0.17.0
 wheel

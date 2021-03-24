@@ -44,6 +44,7 @@ from sktime.forecasting.model_selection import SingleWindowSplitter
 from sktime.forecasting.naive import NaiveForecaster
 from sktime.forecasting.online_learning import OnlineEnsembleForecaster
 from sktime.forecasting.tbats import TBATS
+from sktime.forecasting.bsts import BSTS
 from sktime.forecasting.theta import ThetaForecaster
 from sktime.performance_metrics.forecasting import sMAPE
 from sktime.regression.base import BaseRegressor
@@ -226,6 +227,11 @@ ESTIMATOR_TEST_PARAMS = {
         "sp": [],
         "use_arma_errors": False,
         "n_jobs": 1,
+    },
+    BSTS: {
+        "name__LocalLevel": "LocalLevel",
+        "name__Seasonal": "Seasonal",
+        "num_seasons__Seasonal": 12,
     },
     Prophet: {
         "n_changepoints": 0,

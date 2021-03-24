@@ -21,7 +21,7 @@ from pkg_resources import parse_version
 
 MIN_PYTHON_VERSION = "3.6"
 MIN_REQUIREMENTS = {
-    "numpy": "1.19.0",
+    "numpy": "1.19.2",
     "pandas": "1.1.0",
     "scikit-learn": "0.23.0",
     "statsmodels": "0.12.1",
@@ -40,6 +40,7 @@ EXTRAS_REQUIRE = {
         "stumpy>=1.5.1",
         "tbats>=1.1.0",
         "fbprophet>=0.7.1",
+        "tensorflow-probability>=0.12.1",
     ],
 }
 
