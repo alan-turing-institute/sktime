@@ -164,7 +164,7 @@ class KNeighborsTimeSeriesClassifier(_KNeighborsClassifier, BaseClassifier):
 
         super(KNeighborsTimeSeriesClassifier, self).__init__(
             n_neighbors=n_neighbors,
-            algorithm="brute",
+            algorithm="brute",  # We cannot support the other options yet
             metric=distance,
             metric_params=distance_params,
             **kwargs
