@@ -2,22 +2,24 @@
 """ RandOm Convolutional KErnel Transform (ROCKET)
 """
 
-__author__ = "Matthew Middlehurst"
-__all__ = ["ROCKETClassifier"]
+__author__ = ["RavenRudi"]
+__all__ = ["ROCKETRegressor"]
 
 import numpy as np
-from sklearn.linear_model import RidgeClassifierCV
-from sktime.classification.base import BaseClassifier
+from sklearn.linear_model import RidgeCV
+
+
+from sktime.regression.base import BaseRegressor
 from sktime.series_as_features.base.estimators.shapelet_based._rocket_estimator import (
     BaseROCKETEstimator,
 )
 
 
-class ROCKETClassifier(BaseROCKETEstimator, BaseClassifier):
+class ROCKETRegressor(BaseROCKETEstimator, BaseRegressor):
     """
-    Classifier wrapped for the ROCKET transformer using RidgeClassifierCV as the
-    base classifier.
-    Allows the creation of an ensemble of ROCKET classifiers to allow for
+    Regressor wrapped for the ROCKET transformer using RidgeCV as the
+    base regressor.
+    Allows the creation of an ensemble of ROCKET regressors to allow for
     generation of probabilities as the expense of scalability.
 
     Parameters
@@ -31,7 +33,7 @@ class ROCKETClassifier(BaseROCKETEstimator, BaseClassifier):
 
     Attributes
     ----------
-    classifiers             : array of IndividualTDE classifiers
+    regressors             : array of IndividualTDE regressors
     weights                 : weight of each classifier in the ensemble
     weight_sum              : sum of all weights
     n_classes               : extracted from the data
@@ -47,13 +49,9 @@ class ROCKETClassifier(BaseROCKETEstimator, BaseClassifier):
       journal = {arXiv:1910.13051}
     }
 
-    Java version
-    https://github.com/uea-machine-learning/tsml/blob/master/src/main/java/
-    tsml/classifiers/hybrids/ROCKETClassifier.java
 
     """
 
-    # Used in BaseROCKETEstimator
     @property
     def base_estimator(self):
-        return RidgeClassifierCV(alphas=np.logspace(-3, 3, 10), normalize=True)
+        return RidgeCV(alphas=np.logspace(-3, 3, 10), normalize=True)
