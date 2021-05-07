@@ -919,6 +919,14 @@
       ]
     },
     {
+      "login": "freddyaboulton"
+      "name": "Freddy Boulton",
+      "profile": "https://github.com/freddyaboulton",
+      "contributions": [
+        "test"
+      ]
+    },
+    {
       "login": "dsherry",
       "name": "Dylan Sherry",
       "avatar_url": "https://avatars.githubusercontent.com/dsherry",
