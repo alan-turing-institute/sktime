@@ -14,6 +14,7 @@ from sktime.forecasting.base._sktime import _BaseWindowForecaster
 from sktime.forecasting.base._sktime import _OptionalForecastingHorizonMixin
 from sktime.utils.validation.forecasting import check_sp
 from sktime.utils.validation import check_window_length
+import scipy.stats as stats
 
 
 class NaiveForecaster(_OptionalForecastingHorizonMixin, _BaseWindowForecaster):
@@ -83,7 +84,6 @@ class NaiveForecaster(_OptionalForecastingHorizonMixin, _BaseWindowForecaster):
         # X_train is ignored
         self._set_y_X(y, X)
         self._set_fh(fh)
-
         if self.strategy == "last":
             if self.sp == 1:
                 if self.window_length is not None:
@@ -237,3 +237,29 @@ class NaiveForecaster(_OptionalForecastingHorizonMixin, _BaseWindowForecaster):
                     # linear extrapolation
                     y_pred = last_window[-1] + (fh_idx + 1) * slope
                     return y_pred
+
+    def compute_pred_int(self, y_pred, alpha=DEFAULT_ALPHA):
+        fh = list(range(1, len(y_pred)+1))
+        data = np.array(self._y)
+        T = len(data)
+        K = 1
+
+        actual = data[0 : T - 1]
+        predicted = data[1:T]
+
+        errors = (actual - predicted) ** 2
+
+        sigma_hat = np.sqrt(np.sum(errors) / (T - K))
+
+        if self.strategy == "last":
+            sigma_hat_h = sigma_hat * np.sqrt(fh)
+        elif self.strategy == "mean":
+            sigma_hat_h = sigma_hat * np.sqrt(1+(1/T))
+        elif self.strategy == "drift":
+            sigma_hat_h = sigma_hat * np.sqrt(fh(1+(fh/T)))
+        predicted_val = data[T - 1]
+        C = stats.norm.ppf((1 + alpha)/2.)
+
+        lower_bound = predicted_val - (C * sigma_hat_h)
+        upper_bound = predicted_val + (C * sigma_hat_h)
+        return (lower_bound, upper_bound)

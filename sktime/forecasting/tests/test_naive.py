@@ -172,3 +172,14 @@ def test_strategy_drift_window_length(fh, window_length):
         expected = values[-1] + slope * fh
 
         np.testing.assert_array_equal(y_pred, expected)
+
+
+# @pytest.mark.parametrize("fh", TEST_OOS_FHS)
+# def test_return_pred_int(fh):
+#     f = NaiveForecaster(strategy="last")
+#     f.fit(y_train)
+#     alpha = 0.8
+#     y_pred, pred_intervals = f.predict(fh, alpha=alpha, return_pred_int=True)
+#     pred_intervals = np.array([0, 0, 0])  #     expected = np.array([0, 0, 0])
+#     np.testing.assert_array_equal(pred_intervals, expected)
+# will change this with the results from R
