@@ -28,7 +28,7 @@ def dtw_distance(first, second, **kwargs):
     def dtw_single_channel(first, second, **kwargs):
         cutoff = np.inf
         try:
-            window = kwargs["window"]
+            window = kwargs["w"]
         except Exception:
             window = 1.0
         n = len(first)
@@ -100,6 +100,10 @@ def dtw_distance(first, second, **kwargs):
     return dist
 
 
+def ddtw_distance(a, b, **kwargs):
+    return derivative_dtw_distance(a, b, **kwargs)
+
+
 def derivative_dtw_distance(first, second, **kwargs):
     if isinstance(first, np.ndarray) and isinstance(first[0], float) is True:
         return dtw_distance(np.diff(first), np.diff(second), **kwargs)
@@ -110,6 +114,10 @@ def derivative_dtw_distance(first, second, **kwargs):
             [first[dim].diff()[1:]], [second[dim].diff()[1:]], **kwargs
         )
     return dist
+
+
+def wdtw_distance(a, b, **kwargs):
+    return weighted_dtw_distance(a, b, **kwargs)
 
 
 def weighted_dtw_distance(first, second, **kwargs):
@@ -166,6 +174,10 @@ def weighted_dtw_distance(first, second, **kwargs):
         dist += wdtw_single_channel(first[dim], second[dim], **kwargs)
 
     return dist
+
+
+def wddtw_distance(a, b, **kwargs):
+    return weighted_derivative_dtw_distance(a, b, **kwargs)
 
 
 def weighted_derivative_dtw_distance(first, second, **kwargs):
