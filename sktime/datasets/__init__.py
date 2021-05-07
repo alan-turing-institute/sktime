@@ -9,6 +9,9 @@ __all__ = [
     "load_longley",
     "load_lynx",
     "load_shampoo_sales",
+    "ArmaGenerator",
+    "LinearGenerator",
+    "NoiseGenerator",
     "load_uschange",
     "load_UCR_UEA_dataset",
 ]
@@ -24,3 +27,6 @@ from sktime.datasets.base import load_lynx
 from sktime.datasets.base import load_shampoo_sales
 from sktime.datasets.base import load_uschange
 from sktime.datasets.base import load_UCR_UEA_dataset
+from sktime.datasets.generators import ArmaGenerator
+from sktime.datasets.generators import LinearGenerator
+from sktime.datasets.generators import NoiseGenerator
